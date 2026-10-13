@@ -35,6 +35,13 @@
       "env": {
         "PYTHONIOENCODING": "utf-8"
       }
+    },
+    "bama": {
+      "command": "bama-mcp",
+      "args": [],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
     }
   }
 }
