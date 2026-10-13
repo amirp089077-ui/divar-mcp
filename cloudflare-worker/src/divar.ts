@@ -1,5 +1,6 @@
 import { decodeGrpcFrame, decodeProtobuf, encodeGrpcFrame } from "./proto";
 import citiesData from "./data/cities.json";
+import citySlugsData from "./data/city_slugs.json";
 import categoriesData from "./data/categories.json";
 
 export interface Env {
@@ -40,11 +41,34 @@ export function extractToken(input: string): string {
 export function resolveCityId(query: string = "tehran"): string {
   const q = query.trim().toLowerCase();
   const cities = citiesData as Record<string, string>;
-  if (cities[q]) return cities[q];
-  for (const [name, id] of Object.entries(cities)) {
-    if (name.toLowerCase() === q || name === query) return id;
+  const slugs = citySlugsData as Record<string, string>;
+
+  // If already numeric ID:
+  if (cities[q] || slugs[q]) return q;
+
+  // Search by Persian name:
+  for (const [id, name] of Object.entries(cities)) {
+    if (name === query || name.toLowerCase() === q) return id;
   }
+
+  // Search by ASCII slug:
+  for (const [id, slug] of Object.entries(slugs)) {
+    if (slug === q) return id;
+  }
+
   return "1"; // Default Tehran
+}
+
+export function resolveCityIds(cityOrCities?: string | string[]): string[] {
+  if (!cityOrCities) return ["1"];
+  const list = Array.isArray(cityOrCities)
+    ? cityOrCities
+    : String(cityOrCities)
+        .split(/[,،و\s]+/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+  const ids = list.map((c) => resolveCityId(c)).filter(Boolean);
+  return ids.length > 0 ? [...new Set(ids)] : ["1"];
 }
 
 // ---------------------------------------------------------------------------
@@ -85,11 +109,15 @@ async function makeGrpcRequest(serviceMethod: string, payload: Uint8Array = new 
 export async function search(params: {
   query?: string;
   city?: string;
+  cities?: string | string[];
   category?: string;
   price_min?: number;
   price_max?: number;
+  year_min?: number;
+  year_max?: number;
 }) {
-  const cityId = resolveCityId(params.city);
+  const cityInput = params.cities || params.city || "tehran";
+  const cityIds = resolveCityIds(cityInput);
   const formData: Record<string, any> = {};
 
   if (params.category && params.category.toUpperCase() !== "ROOT") {
@@ -101,6 +129,12 @@ export async function search(params: {
     if (params.price_max !== undefined) rng["maximum"] = params.price_max;
     formData["price"] = { number_range: rng };
   }
+  if (params.year_min !== undefined || params.year_max !== undefined) {
+    const yr: Record<string, number> = {};
+    if (params.year_min !== undefined) yr["minimum"] = params.year_min;
+    if (params.year_max !== undefined) yr["maximum"] = params.year_max;
+    formData["production-year"] = { number_range: yr };
+  }
 
   const searchData: Record<string, any> = {};
   if (params.query) searchData["query"] = params.query;
@@ -109,7 +143,7 @@ export async function search(params: {
   }
 
   const payload: Record<string, any> = {
-    city_ids: [cityId],
+    city_ids: cityIds,
     pagination_data: {
       "@type": "type.googleapis.com/post_list.PaginationData",
       page: 1,

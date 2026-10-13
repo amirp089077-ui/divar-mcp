@@ -17,11 +17,18 @@ export const TOOLS: ToolDefinition[] = [
     inputSchema: {
       type: "object",
       properties: {
-        query: { type: "string", description: "Search query text in Persian (e.g. پژو ۲۰۶)" },
-        city: { type: "string", description: "City name or slug (default: tehran)" },
-        category: { type: "string", description: "Category slug (e.g. vehicles, electronic-devices)" },
+        query: { type: "string", description: "Search query text in Persian (e.g. پژو ۲۰۶ or پیکان وانت)" },
+        city: { type: "string", description: "City name or slug (e.g. شاهرود)" },
+        cities: {
+          type: "array",
+          items: { type: "string" },
+          description: "Search multiple cities at once, e.g. ['شاهرود', 'سبزوار']",
+        },
+        category: { type: "string", description: "Category slug (e.g. vehicles, cars, electronic-devices)" },
         price_min: { type: "integer", description: "Minimum price in Toman" },
         price_max: { type: "integer", description: "Maximum price in Toman" },
+        year_min: { type: "integer", description: "Minimum production year (e.g. 1390)" },
+        year_max: { type: "integer", description: "Maximum production year (e.g. 1402)" },
       },
     },
   },
