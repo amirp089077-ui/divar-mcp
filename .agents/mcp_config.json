@@ -49,6 +49,13 @@
       "env": {
         "PYTHONIOENCODING": "utf-8"
       }
+    },
+    "basalam": {
+      "command": "basalam-mcp",
+      "args": [],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
     }
   }
 }

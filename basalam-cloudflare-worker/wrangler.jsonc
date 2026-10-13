@@ -1,0 +1,8 @@
+{
+  "name": "basalam-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-13",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
