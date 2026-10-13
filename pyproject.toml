@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "divar-mcp"
+version = "0.2.0"
+description = "Model Context Protocol (MCP) server for Divar (divar.ir) with 40 tools"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "amirp089077-ui"}
+]
+dependencies = []
+
+[project.scripts]
+divar-mcp = "divar_mcp.server:main"
+
+[tool.setuptools.packages.find]
+include = ["divar_mcp*"]
+
+[tool.setuptools.package-data]
+divar_mcp = ["data/*"]

@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Logs
+.pytest_cache/
+*.log
+*.jsonl
+*.csv
+
+# Sensitive tokens & Sessions
+*.session.json
+divar_session.json
+session.json
+.env
+
+# Large binaries & APKs
+*.apk
+Divar-release-*.apk
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

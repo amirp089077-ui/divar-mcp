@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "divar": {
+      "command": "python",
+      "args": ["-m", "divar_mcp"],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "c:/Users/Administrator/Desktop/divar"
+      }
+    }
+  }
+}
