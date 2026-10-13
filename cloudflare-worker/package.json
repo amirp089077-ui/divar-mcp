@@ -1,0 +1,20 @@
+{
+  "name": "divar-mcp-cloudflare",
+  "version": "1.0.0",
+  "description": "Divar MCP Server deployed on Cloudflare Workers with SSE and HTTP transport",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.0",
+    "hono": "^4.7.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261013.1",
+    "typescript": "^5.7.3",
+    "wrangler": "^4.150.0"
+  }
+}

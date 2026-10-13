@@ -36,6 +36,11 @@ session.json
 *.apk
 Divar-release-*.apk
 
+# Node / Cloudflare
+node_modules/
+.wrangler/
+package-lock.json
+
 # OS / Editor files
 .DS_Store
 Thumbs.db
