@@ -2,10 +2,38 @@
   "mcpServers": {
     "divar": {
       "command": "python",
-      "args": ["-m", "divar_mcp"],
+      "args": [
+        "-m",
+        "divar_mcp"
+      ],
       "env": {
         "PYTHONIOENCODING": "utf-8",
         "PYTHONPATH": "c:/Users/Administrator/Desktop/divar"
+      }
+    },
+    "sheypoor": {
+      "command": "python",
+      "args": [
+        "-m",
+        "sheypoor_mcp.server"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "c:/Users/Administrator/Desktop/sheypoor-mcp;c:/Users/Administrator/Desktop/divar"
+      }
+    },
+    "myket": {
+      "command": "myket-mcp",
+      "args": [],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "bazaar": {
+      "command": "bazaar-mcp",
+      "args": [],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
       }
     }
   }
